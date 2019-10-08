@@ -1,0 +1,6 @@
+.vscode
+*.exe
+.DS_Store
+*.obj
+*.bin
+*.dat

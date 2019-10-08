@@ -1,0 +1,19 @@
+Comandos básicos do GIT em linha de comando (terminal ou cmd)
+1) clonar um repositório
+# git clone <endereço>
+
+2) atualizar um repositório local que já foi clonado
+LEMBRE DE ESTAR DENTRO DO DIRETÓRIO/PASTA clonado
+# git pull origin master
+
+ATENÇÃO: sempre que for começar a programar, execute este comando.
+
+3) enviar atualizações para o servidor
+# git add . 
+
+# git commit -m "informações do que foi realizado durante a programação"
+
+# git push origin master
+
+4) desfazer as alterações realizadas no repositório local
+# git checkout .
