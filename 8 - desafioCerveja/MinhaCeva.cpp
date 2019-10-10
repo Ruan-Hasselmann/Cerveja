@@ -14,7 +14,7 @@ using namespace std;
 typedef struct {
 	string data;
 	string estilo;
-	float nota;
+	int nota;
 	string fabricante;
 } Degustacao;
 
@@ -31,11 +31,10 @@ string pegaDataString() {
 }
 
 void inicializaCeva(Degustacao vetor[], int n) {
-	//inicializar garagem
 	for (int i = 0; i < n; i++) {
 		vetor[i].data = "";
 		vetor[i].estilo = "";
-		//vetor[i].nota = "";
+		vetor[i].nota = 0;
 		vetor[i].fabricante = "";
 	}
 }
@@ -54,13 +53,13 @@ string paraMaiusculo(string palavra) {
 	return palavra;
 }
 
-void atualizaArquivoComCeva(Degustacao vetor[], int n) {
+void atualizaArquivoComCeva(Degustacao vetor[], int qtdCeva) {
 	ofstream procuradorEscrita;
 	procuradorEscrita.open(NOMEARQUIVO);
 	
-	for (int i = 0; i < n; i++) {
-		if (vetor[i].data != "") {
-			procuradorEscrita << vetor[i].data 
+	for (int i = 0; i < qtdCeva; i++) {
+		if (vetor[i].data == "") {
+			procuradorEscrita << pegaDataString() 
 			     << " " << vetor[i].estilo
                  << " " << vetor[i].nota 
 				 << " " << vetor[i].fabricante << endl;
@@ -70,7 +69,7 @@ void atualizaArquivoComCeva(Degustacao vetor[], int n) {
 }
 
 void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva) {
-	int i;
+	/*int i;
 	if (qtdCeva == TAM){
 	   	cout << "Vetor lotado..." << endl;
 	} else {
@@ -78,9 +77,7 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva) {
     	vetor[i].data = pegaDataString();
 		cout << "Estilo da cerveja (Pilsen, APA, IPA, etc): ";
       	cin >> vetor[qtdCeva].estilo;
-		vetor[i].estilo = paraMaiusculo(vetor[i].estilo);
-			         	
-		//validar se o estilo estah correto
+		vetor[qtdCeva].estilo = paraMaiusculo(vetor[qtdCeva].estilo);
 			         	
 		do {
 			cout << "Nota geral [0 a 5]: ";			         	
@@ -88,18 +85,33 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva) {
 		} while (vetor[qtdCeva].nota < 0 || vetor[qtdCeva].nota > 5);
        	cout << "Nome do fabricante: ";
        	cin >> vetor[qtdCeva].fabricante;
-	}
+	}*/
+	int i;
+	for (i = 0; i < n; i++){
+		if (vetor[i].estilo == "") {
+			break;
+		}
+	}        				         	
+	//outra opcao de for (i = 0; vetor[i].placa != ""; i++);			         	
+	cout << "Estilo: ";
+	cin >> vetor[i].estilo;
 
-	//atualiza arquivo carros.dat com os carros
-	//da garagem
-	atualizaArquivoComCeva(vetor, n);
+	cout << "Nota: ";
+	cin >> vetor[i].nota;
+
+	cout << "Fabricante: ";
+	cin >> vetor[i].fabricante;
+
+	vetor[i].estilo = paraMaiusculo(vetor[i].estilo);
+
+	atualizaArquivoComCeva(vetor, qtdCeva);
 	
 	cout << "Cerveja cadastrada na degustação!" << endl;
 }
 
-void listaCevaDegustacao(Degustacao vetor[], int n){
-	for (int i = 0; i < n; i++) {
-		if (vetor[i].data != "") {
+void listaCevaDegustacao(Degustacao vetor[], int qtdCeva){
+	for (int i = 0; i < qtdCeva; i++) {
+		if (vetor[i].data == "") {
 			cout << "-------------------------" << endl;
 		    cout << "Data      : " << vetor[i].data << endl;
 	    	cout << "Estilo    : " << vetor[i].estilo << endl;
@@ -135,12 +147,12 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva){
 	}
 }
 
-void converte(string linha, string *data, string *estilo, float *nota, string *fabricante) {
+void converte(string linha, string *data, string *estilo, int *nota, string *fabricante) {
 	stringstream sData, 
 	             sEstilo,
                  sNota,
 		         sFabricante;
-	int parteLinha = 0; //0 para placa; 1 para data; 2 para hora
+	int parteLinha = 0;
 	int i;
 	for (i = 0; linha[i] != ' '; i++) {
 		sData << linha[i];
@@ -175,9 +187,7 @@ void converte(string linha, string *data, string *estilo, float *nota, string *f
 int populaCevaArquivo(ifstream &procurador, Degustacao vetor[], int n) {
     string conteudoLinha;
     int i = 0;
-    //transferir o conteudo do arquivo para o vetor garagem
     while (getline(procurador,conteudoLinha)) {
-        //cout << conteudoLinha << endl;
         converte(conteudoLinha, &vetor[i].data,
 		                        &vetor[i].estilo,
                                 &vetor[i].nota,
@@ -198,12 +208,10 @@ int main() {
     ifstream procuradorLeitura;
     procuradorLeitura.open(NOMEARQUIVO);
     if (procuradorLeitura) {
-        //popula vetor garagem
         qtdCeva = populaCevaArquivo(procuradorLeitura, vetor, TAM);
         cout << "Arquivo lido para vetor" << endl;
         procuradorLeitura.close();
     } else {
-        //cria arquivo
         procuradorEscrita.open(NOMEARQUIVO);
         procuradorEscrita.close();
     }
@@ -220,27 +228,26 @@ int main() {
 		cin >> opcao;
 		
 		switch (opcao) {
-			case 1 : //entrada veiculo
+			case 1 : 
 			         cout << "Cadastrar degusta��o" << endl;
 			         if (qtdCeva == TAM) {
 			         	cout << "Arquivo lotada." << endl;
 			         } else {
 			         	qtdCeva++;
 			         	cadastraCerveja(vetor, TAM, qtdCeva);
-						//grava vetor em arquivo
+						
 			         }
 			         break;
-			case 2 : //saida veiculo
+			case 2 : 
 			 		 cout << "Listar degusta��es" << endl;
 			 		 if (qtdCeva == 0) {
 			 		 	cout << "Arquivo vazio." << endl;
 			 		 } else {
-			 		 	listaCevaDegustacao(vetor, TAM);
-						//atualiza vetor em arquivo
-						qtdCeva--; 
+			 		 	listaCevaDegustacao(vetor, qtdCeva);
+						//qtdCeva--; 
 					 }
 			         break;
-			case 3 : //listagem de veiculos na garagem
+			case 3 : 
 					 cout << "Lista degusta��es por estilo de cerveja" << endl;
 					 if (qtdCeva == 0) {
 					 	cout << "Arquivo vazio." << endl;
@@ -248,7 +255,7 @@ int main() {
 						 listaCevaTipo(vetor, TAM, qtdCeva);
 					 }
 			         break;
-			case 4 : //relatorios
+			case 4 : //ranking ceva
 			         break;
 			case 5 : cout << "Obrigado por usar o sistema." << endl;
 			         break;
