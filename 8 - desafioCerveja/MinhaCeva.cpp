@@ -14,7 +14,7 @@ using namespace std;
 typedef struct {
 	string data;
 	string estilo;
-	int nota;
+	string nota;
 	string fabricante;
 } Degustacao;
 
@@ -34,7 +34,7 @@ void inicializaCeva(Degustacao vetor[], int n) {
 	for (int i = 0; i < n; i++) {
 		vetor[i].data = "";
 		vetor[i].estilo = "";
-		vetor[i].nota = 0;
+		vetor[i].nota = "";
 		vetor[i].fabricante = "";
 	}
 }
@@ -59,7 +59,7 @@ void atualizaArquivoComCeva(Degustacao vetor[], int qtdCeva) {
 	
 	for (int i = 0; i < qtdCeva; i++) {
 		if (vetor[i].data == "") {
-			procuradorEscrita << pegaDataString() 
+			procuradorEscrita << vetor[i].data
 			     << " " << vetor[i].estilo
                  << " " << vetor[i].nota 
 				 << " " << vetor[i].fabricante << endl;
@@ -92,6 +92,7 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva) {
 			break;
 		}
 	}        				         	
+	vetor[i].data = pegaDataString();
 	//outra opcao de for (i = 0; vetor[i].placa != ""; i++);			         	
 	cout << "Estilo: ";
 	cin >> vetor[i].estilo;
@@ -104,14 +105,18 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva) {
 
 	vetor[i].estilo = paraMaiusculo(vetor[i].estilo);
 
+	vetor[i].fabricante= paraMaiusculo(vetor[i].fabricante);
+
 	atualizaArquivoComCeva(vetor, qtdCeva);
 	
 	cout << "Cerveja cadastrada na degustação!" << endl;
+	system("cls");
 }
 
 void listaCevaDegustacao(Degustacao vetor[], int qtdCeva){
+	system("cls");
 	for (int i = 0; i < qtdCeva; i++) {
-		if (vetor[i].data == "") {
+		if (vetor[i].data != "") {
 			cout << "-------------------------" << endl;
 		    cout << "Data      : " << vetor[i].data << endl;
 	    	cout << "Estilo    : " << vetor[i].estilo << endl;
@@ -123,6 +128,7 @@ void listaCevaDegustacao(Degustacao vetor[], int qtdCeva){
 }
 
 void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva){
+	system("cls");
     cout << "Listagem por estilo de cerveja" << endl;
 	if (qtdCeva == -1) {
 	cout << "Nenhuma degusta��o cadastrada..." << endl;
@@ -147,7 +153,7 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva){
 	}
 }
 
-void converte(string linha, string *data, string *estilo, int *nota, string *fabricante) {
+void converte(string linha, string *data, string *estilo, string *nota, string *fabricante) {
 	stringstream sData, 
 	             sEstilo,
                  sNota,
