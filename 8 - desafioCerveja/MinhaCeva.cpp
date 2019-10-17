@@ -14,7 +14,7 @@ using namespace std;
 typedef struct {
 	string data;
 	string estilo;
-	string nota;
+	int nota;
 	string fabricante;
 } Degustacao;
 
@@ -153,10 +153,10 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva){
 	}
 }
 
-void converte(string linha, string *data, string *estilo, string *nota, string *fabricante) {
+void converte(string linha, string *data, string *estilo, int *nota, string *fabricante) {
 	stringstream sData, 
 	             sEstilo,
-                 sNota,
+                 Nota,
 		         sFabricante;
 	int parteLinha = 0;
 	int i;
@@ -175,10 +175,10 @@ void converte(string linha, string *data, string *estilo, string *nota, string *
 	conversaoEstilo >> *estilo;
 
     for (++i; linha[i] != ' '; i++) {
-		sNota << linha[i];
+		Nota << linha[i];
 	}
-	sNota << "\0";
-	stringstream conversaoNota(sNota.str());
+	Nota << "\0";
+	stringstream conversaoNota(Nota.str());
 	conversaoNota >> *nota;
 	
 	for (++i; i < linha.length(); i++) {
@@ -208,7 +208,7 @@ void inicializaCeva(Degustacao vetor[], int n) {
 	for (int i = 0; i < n; i++) {
 		vetor[i].data = "";
 		vetor[i].estilo = "";
-		vetor[i].nota = "";
+		vetor[i].nota = 0;
 		vetor[i].fabricante = "";
 	}
 }
@@ -270,7 +270,7 @@ int main() {
 						 listaCevaTipo(vetor, TAM, qtdCeva);
 					 }
 			         break;
-			case 4 : //ranking ceva
+			case 4 : //ranking ceva //alterar posição dos vetores de acordo com a maior nota
 			         break;
 			case 5 : cout << "Obrigado por usar o sistema." << endl;
 			         break;
