@@ -30,14 +30,14 @@ string pegaDataString() {
     return data.str();
 }
 
-void inicializaCeva(Degustacao vetor[], int n) {
+/*void inicializaCeva(Degustacao vetor[], int n) {
 	for (int i = 0; i < n; i++) {
 		vetor[i].data = "";
 		vetor[i].estilo = "";
 		vetor[i].nota = "";
 		vetor[i].fabricante = "";
 	}
-}
+}*/
 
 string paraMaiusculo(string palavra) {
 	int i = 0;
@@ -58,7 +58,7 @@ void atualizaArquivoComCeva(Degustacao vetor[], int qtdCeva) {
 	procuradorEscrita.open(NOMEARQUIVO);
 	
 	for (int i = 0; i < qtdCeva; i++) {
-		if (vetor[i].data == "") {
+		if (vetor[i].data != "") {
 			procuradorEscrita << vetor[i].data
 			     << " " << vetor[i].estilo
                  << " " << vetor[i].nota 
@@ -175,9 +175,9 @@ void converte(string linha, string *data, string *estilo, string *nota, string *
 	conversaoEstilo >> *estilo;
 
     for (++i; linha[i] != ' '; i++) {
-		sData << linha[i];
+		sNota << linha[i];
 	}
-	sData << "\0";
+	sNota << "\0";
 	stringstream conversaoNota(sNota.str());
 	conversaoNota >> *nota;
 	
@@ -202,6 +202,15 @@ int populaCevaArquivo(ifstream &procurador, Degustacao vetor[], int n) {
         
     }
     return i;
+}
+
+void inicializaCeva(Degustacao vetor[], int n) {
+	for (int i = 0; i < n; i++) {
+		vetor[i].data = "";
+		vetor[i].estilo = "";
+		vetor[i].nota = "";
+		vetor[i].fabricante = "";
+	}
 }
 
 int main() {
