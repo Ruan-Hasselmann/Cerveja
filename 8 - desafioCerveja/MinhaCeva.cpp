@@ -129,6 +129,7 @@ void listaCevaDegustacao(Degustacao vetor[], int qtdCeva){
 
 void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva){
 	system("cls");
+	int tipoCeva = 0; 
     cout << "Listagem por estilo de cerveja" << endl;
 	if (qtdCeva == -1) {
 	cout << "Nenhuma degusta��o cadastrada..." << endl;
@@ -146,10 +147,10 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva){
 	    	cout << "Nota      : " << vetor[i].nota << endl;
 	    	cout << "Fabricante: " << vetor[i].fabricante << endl;
 	      	cout << "-------------------------" << endl;
+			tipoCeva++;
 	    	}
     	}
-        int i = 0;
-	   	cout << "Total de degusta��es do estilo: " << i+1 << endl;
+	   	cout << "Total de degusta��es do estilo: " << tipoCeva << endl;
 	}
 }
 
