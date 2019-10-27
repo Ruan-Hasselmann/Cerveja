@@ -107,7 +107,7 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 
 	atualizaArquivoComCeva(vetor, qtdCeva);
 
-	cout << "Cerveja cadastrada na degustaÃ§Ã£o!" << endl;
+	cout << "Cerveja cadastrada na degustação!" << endl;
 
 	system("cls");
 }
@@ -139,7 +139,7 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 	cout << "Listagem por estilo de cerveja" << endl;
 	if (qtdCeva == -1)
 	{
-		cout << "Nenhuma degustaï¿½ï¿½o cadastrada..." << endl;
+		cout << "Nenhuma degustação cadastrada..." << endl;
 	}
 	else
 	{
@@ -149,6 +149,8 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 		cin >> estiloPesquisa;
 
 		estiloPesquisa = paraMaiusculo(estiloPesquisa);
+		
+		system("cls");
 
 		for (int i = 0; i <= qtdCeva; i++)
 		{
@@ -165,7 +167,7 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 			}
 		}
 
-		cout << "Total de degustaï¿½ï¿½es do estilo: " << tipoCeva << endl;
+		cout << "Total de degustações do estilo: " << tipoCeva << endl << endl;
 	}
 }
 
@@ -258,7 +260,7 @@ void apagarDeg(Degustacao vetor[], int qtdCeva, int n)
 	}
 	if (i == n)
 	{
-		cout << "Cerveja nï¿½o localizada no sistema." << endl;
+		cout << "Cerveja não localizada no sistema." << endl;
 	}
 }
 
@@ -363,19 +365,19 @@ int main()
 	do
 	{
 		cout << "Menu Degusta Cerveja Artesanal" << endl;
-		cout << "1 - Cadastrar degustaï¿½ï¿½o" << endl;
-		cout << "2 - Listar degustaï¿½ï¿½es" << endl;
-		cout << "3 - Lista degustaï¿½ï¿½es por estilo de cerveja" << endl;
+		cout << "1 - Cadastrar degustação" << endl;
+		cout << "2 - Listar degustações" << endl;
+		cout << "3 - Lista degustações por estilo de cerveja" << endl;
 		cout << "4 - Ranking das cervejas" << endl;
-		cout << "5 - Apagar degusaÃ§Ã£o" << endl;
+		cout << "5 - Apagar degustação" << endl;
 		cout << "6 - Sair" << endl;
-		cout << "Opï¿½ï¿½o: ";
+		cout << "Opção: ";
 		cin >> opcao;
 
 		switch (opcao)
 		{
 		case 1:
-			cout << "Cadastrar degustaï¿½ï¿½o" << endl;
+			cout << "Cadastrar degustação" << endl;
 			if (qtdCeva == TAM)
 			{
 				cout << "Arquivo lotado." << endl;
@@ -387,7 +389,7 @@ int main()
 			}
 			break;
 		case 2:
-			cout << "Listar degustaï¿½ï¿½es" << endl;
+			cout << "Listar degustações" << endl;
 			if (qtdCeva == 0)
 			{
 				cout << "Arquivo vazio." << endl;
@@ -398,7 +400,7 @@ int main()
 			}
 			break;
 		case 3:
-			cout << "Lista degustaï¿½ï¿½es por estilo de cerveja" << endl;
+			cout << "Lista degustações por estilo de cerveja" << endl;
 			if (qtdCeva == 0)
 			{
 				cout << "Arquivo vazio." << endl;
@@ -409,7 +411,7 @@ int main()
 			}
 			break;
 		case 4:
-			cout << "Lista degustaï¿½ï¿½es por ranking de cerveja" << endl;
+			cout << "Lista degustações por ranking de cerveja" << endl;
 			if (qtdCeva == 0)
 			{
 				cout << "Arquivo vazio." << endl;
@@ -420,7 +422,7 @@ int main()
 			}
 			break;
 		case 5:
-			cout << "Excluir desgustaÃ§Ã£o" << endl;
+			cout << "Excluir desgustação" << endl;
 			if (qtdCeva == 0)
 			{
 				cout << "Arquivo vazio." << endl;
@@ -434,7 +436,7 @@ int main()
 			cout << "Obrigado por usar o sistema." << endl;
 			break;
 		default:
-			cout << "Opï¿½ï¿½o invï¿½lida." << endl;
+			cout << "Opção inválida." << endl;
 		}
 	} while (opcao != 6);
 	return 1;
