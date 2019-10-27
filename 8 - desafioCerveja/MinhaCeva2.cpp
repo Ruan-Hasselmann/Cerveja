@@ -5,7 +5,7 @@
 #include <time.h>
 #include <ctime>
 #include <fstream>
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 #define TAM 10
 #define NOMEARQUIVO "ceva.dat"
@@ -161,39 +161,56 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 }
 
 void organizaNota(Degustacao vetor[], int qtdCeva, int n){
+
 	system("cls");
-    cout<<"Enter number of element you want to store: ";
-    int arr[qtdCeva],i,j;
-    cout<<"Enter array values:\n";
-    //taking the array value 
-    //from user
+
+    int arr3[qtdCeva],i,j;
+	string arr1[qtdCeva];
+	string arr2[qtdCeva];
+	string arr4[qtdCeva];
+
     for(i=0;i<n;i++)
     {
-        arr[i] = vetor[i].nota;
+        arr1[i] = vetor[i].data;
+		arr2[i] = vetor[i].estilo;
+		arr3[i] = vetor[i].nota;
+		arr4[i] = vetor[i].fabricante;
     }
-    //Now we will sort the array
+
     for(i=0;i<n-1;i++)
     {
         for(j=0;j<n-i-1;j++)
         {
-            //checking if previous value is
-            //grater than next one or not
-            if(arr[j]>arr[j+1])
+            if(arr3[j]>arr3[j+1])
             {
-                //temp will temporarly store
-                //the value of arr[j]
-                //then we will swap the values
-                int temp=arr[j];
-                arr[j]=arr[j+1];
-                arr[j+1]=temp;
+				string temp1=arr1[j];
+                arr1[j]=arr1[j+1];
+                arr1[j+1]=temp1;
+
+				string temp2=arr2[j];
+                arr2[j]=arr2[j+1];
+                arr2[j+1]=temp2;
+
+                int temp3=arr3[j];
+                arr3[j]=arr3[j+1];
+                arr3[j+1]=temp3;
+
+				string temp4=arr4[j];
+                arr4[j]=arr4[j+1];
+                arr4[j+1]=temp4;
             }
         }
     }
-    cout<<"After Bubble sort the array is:\n";
+
     for(i=0;i<n;i++){
-    	cout<<arr[i]<<" ";
+		cout << "-------------------------" << endl;
+		cout << "Data      : " << arr1[i] << endl;
+		cout << "Estilo    : " << arr2[i] << endl;
+		cout << "Nota      : " << arr3[i] << endl;
+		cout << "Fabricante: " << arr4[i] << endl;
+		cout << "-------------------------" << endl;
 	}
-	cout << endl;
+
 }
 
 void converte(string linha, string *data, string *estilo, int *nota, string *fabricante)
