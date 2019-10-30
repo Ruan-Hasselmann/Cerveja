@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
-#include <locale.h>
 #include <sstream>
-#include <time.h>
 #include <ctime>
 #include <fstream>
-#include <bits/stdc++.h>
+
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
 
 #define TAM 10
 #define NOMEARQUIVO "ceva.dat"
@@ -60,10 +61,10 @@ void atualizaArquivoComCeva(Degustacao vetor[], int qtdCeva)
 		if (vetor[i].nome != "")
 		{
 			procuradorEscrita << vetor[i].nome
-							  << " " << vetor[i].data
-							  << " " << vetor[i].estilo
-							  << " " << vetor[i].nota
-							  << " " << vetor[i].fabricante << endl;
+							  << "-" << vetor[i].data
+							  << "-" << vetor[i].estilo
+							  << "-" << vetor[i].nota
+							  << "-" << vetor[i].fabricante << endl;
 		}
 	}
 
@@ -73,7 +74,6 @@ void atualizaArquivoComCeva(Degustacao vetor[], int qtdCeva)
 void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 {
 	int i;
-
 	for (i = 0; i < n; i++)
 	{
 		if (vetor[i].estilo == "")
@@ -82,11 +82,13 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 		}
 	}
 
+	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Nome: ";
-	cin >> vetor[i].nome;
+	getline(cin, vetor[i].nome);
 
 	vetor[i].data = pegaDataString();
 
+	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Estilo: ";
 	cin >> vetor[i].estilo;
 
@@ -96,6 +98,7 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 		cin >> vetor[i].nota;
 	} while (vetor[i].nota < 0 || vetor[i].nota > 5);
 
+	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Fabricante: ";
 	cin >> vetor[i].fabricante;
 
@@ -107,28 +110,9 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 
 	atualizaArquivoComCeva(vetor, qtdCeva);
 
-	cout << "Cerveja cadastrada na degustação!" << endl;
+	cout << "Cerveja cadastrada na degustaï¿½ï¿½o!" << endl;
 
 	system("cls");
-}
-
-void listaCevaDegustacao(Degustacao vetor[], int qtdCeva)
-{
-	system("cls");
-
-	for (int i = 0; i < qtdCeva; i++)
-	{
-		if (vetor[i].data != "")
-		{
-			cout << "-------------------------" << endl;
-			cout << "Nome      : " << vetor[i].nome << endl;
-			cout << "Data      : " << vetor[i].data << endl;
-			cout << "Estilo    : " << vetor[i].estilo << endl;
-			cout << "Nota      : " << vetor[i].nota << endl;
-			cout << "Fabricante: " << vetor[i].fabricante << endl;
-			cout << "-------------------------" << endl;
-		}
-	}
 }
 
 void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
@@ -139,7 +123,7 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 	cout << "Listagem por estilo de cerveja" << endl;
 	if (qtdCeva == -1)
 	{
-		cout << "Nenhuma degustação cadastrada..." << endl;
+		cout << "Nenhuma degustaï¿½ï¿½o cadastrada..." << endl;
 	}
 	else
 	{
@@ -149,7 +133,7 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 		cin >> estiloPesquisa;
 
 		estiloPesquisa = paraMaiusculo(estiloPesquisa);
-		
+
 		system("cls");
 
 		for (int i = 0; i <= qtdCeva; i++)
@@ -167,72 +151,50 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 			}
 		}
 
-		cout << "Total de degustações do estilo: " << tipoCeva << endl << endl;
+		cout << "Total de degustaï¿½ï¿½es do estilo: " << tipoCeva << endl
+			 << endl;
 	}
 }
 
-void organizaNota(Degustacao vetor[], int qtdCeva, int n)
+void organizaNota(Degustacao vetor[], int n)
 {
-
 	system("cls");
 
-	int arr3[qtdCeva], i, j;
-	string arr[qtdCeva];
-	string arr1[qtdCeva];
-	string arr2[qtdCeva];
-	string arr4[qtdCeva];
+	int i, houveTroca;
+    Degustacao aux;
+    do{
+        houveTroca = 0;
+        for(i = 0; i < n-1; i++){
+            if(vetor[i].nota < vetor[i+1].nota){
+                houveTroca = 1;
+                aux = vetor[i];
+                vetor[i] = vetor[i+1];
+                vetor[i+1] = aux;
+            }
+        }
+    }while(houveTroca);
+}
 
-	for (i = 0; i < n; i++)
-	{
-		arr[i] = vetor[i].nome;
-		arr1[i] = vetor[i].data;
-		arr2[i] = vetor[i].estilo;
-		arr3[i] = vetor[i].nota;
-		arr4[i] = vetor[i].fabricante;
-	}
+void listaCevaDegustacao(Degustacao vetor[], int qtdCeva)
+{
+	system("cls");
 
-	for (i = 0; i < n - 1; i++)
+	for (int i = 0; i < qtdCeva; i++)
 	{
-		for (j = 0; j < n - i - 1; j++)
+		if (vetor[i].nome != "")
 		{
-			if (arr3[j] > arr3[j + 1])
-			{
-				string temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
-
-				string temp1 = arr1[j];
-				arr1[j] = arr1[j + 1];
-				arr1[j + 1] = temp1;
-
-				string temp2 = arr2[j];
-				arr2[j] = arr2[j + 1];
-				arr2[j + 1] = temp2;
-
-				int temp3 = arr3[j];
-				arr3[j] = arr3[j + 1];
-				arr3[j + 1] = temp3;
-
-				string temp4 = arr4[j];
-				arr4[j] = arr4[j + 1];
-				arr4[j + 1] = temp4;
-			}
+			cout << "-------------------------" << endl;
+			cout << "Nome      : " << vetor[i].nome << endl;
+			cout << "Data      : " << vetor[i].data << endl;
+			cout << "Estilo    : " << vetor[i].estilo << endl;
+			cout << "Nota      : " << vetor[i].nota << endl;
+			cout << "Fabricante: " << vetor[i].fabricante << endl;
+			cout << "-------------------------" << endl;
 		}
-	}
-
-	for (i = 0; i < n; i++)
-	{
-		cout << "-------------------------" << endl;
-		cout << "Nome      : " << arr[i] << endl;
-		cout << "Data      : " << arr1[i] << endl;
-		cout << "Estilo    : " << arr2[i] << endl;
-		cout << "Nota      : " << arr3[i] << endl;
-		cout << "Fabricante: " << arr4[i] << endl;
-		cout << "-------------------------" << endl;
 	}
 }
 
-void apagarDeg(Degustacao vetor[], int qtdCeva, int n)
+void apagarDegustacao(Degustacao vetor[], int qtdCeva, int n)
 {
 	string nome;
 	cout << "Digite o nome para excluir: ";
@@ -260,7 +222,7 @@ void apagarDeg(Degustacao vetor[], int qtdCeva, int n)
 	}
 	if (i == n)
 	{
-		cout << "Cerveja não localizada no sistema." << endl;
+		cout << "Cerveja nï¿½o localizada no sistema." << endl;
 	}
 }
 
@@ -271,7 +233,7 @@ void converte(string linha, string *nome, string *data, string *estilo, int *not
 	int parteLinha = 0;
 	int i;
 
-	for (i = 0; linha[i] != ' '; i++)
+	for (i = 0; linha[i] != '-'; i++)
 	{
 		sNome << linha[i];
 	}
@@ -279,7 +241,7 @@ void converte(string linha, string *nome, string *data, string *estilo, int *not
 	stringstream conversaoNome(sNome.str());
 	conversaoNome >> *nome;
 
-	for (++i; linha[i] != ' '; i++)
+	for (++i; linha[i] != '-'; i++)
 	{
 		sData << linha[i];
 	}
@@ -287,7 +249,7 @@ void converte(string linha, string *nome, string *data, string *estilo, int *not
 	stringstream conversaoData(sData.str());
 	conversaoData >> *data;
 
-	for (++i; linha[i] != ' '; i++)
+	for (++i; linha[i] != '-'; i++)
 	{
 		sEstilo << linha[i];
 	}
@@ -295,7 +257,7 @@ void converte(string linha, string *nome, string *data, string *estilo, int *not
 	stringstream conversaoEstilo(sEstilo.str());
 	conversaoEstilo >> *estilo;
 
-	for (++i; linha[i] != ' '; i++)
+	for (++i; linha[i] != '-'; i++)
 	{
 		Nota << linha[i];
 	}
@@ -364,23 +326,23 @@ int main()
 
 	do
 	{
-		cout << "Menu Degusta Cerveja Artesanal" << endl;
-		cout << "1 - Cadastrar degustação" << endl;
-		cout << "2 - Listar degustações" << endl;
-		cout << "3 - Lista degustações por estilo de cerveja" << endl;
+		cout << "MENU DEGUSTAï¿½ï¿½O CERVEJA ARTESANAL" << endl;
+		cout << "1 - Cadastrar degustaï¿½ï¿½o" << endl;
+		cout << "2 - Listar degustaï¿½ï¿½es" << endl;
+		cout << "3 - Lista degustaï¿½ï¿½es por estilo de cerveja" << endl;
 		cout << "4 - Ranking das cervejas" << endl;
-		cout << "5 - Apagar degustação" << endl;
+		cout << "5 - Apagar degustaï¿½ï¿½o" << endl;
 		cout << "6 - Sair" << endl;
-		cout << "Opção: ";
+		cout << "Opï¿½ï¿½o: ";
 		cin >> opcao;
 
 		switch (opcao)
 		{
 		case 1:
-			cout << "Cadastrar degustação" << endl;
+			cout << "CADASTRAR DEGUSTAï¿½ï¿½O" << endl;
 			if (qtdCeva == TAM)
 			{
-				cout << "Arquivo lotado." << endl;
+				cout << "ARQUIVO LOTADO." << endl;
 			}
 			else
 			{
@@ -389,10 +351,10 @@ int main()
 			}
 			break;
 		case 2:
-			cout << "Listar degustações" << endl;
+			cout << "LISTAR DEGUSTAï¿½ï¿½ES" << endl;
 			if (qtdCeva == 0)
 			{
-				cout << "Arquivo vazio." << endl;
+				cout << "NENHUMA DEGUSTAï¿½ï¿½O CADASTRADA!" << endl;
 			}
 			else
 			{
@@ -400,10 +362,10 @@ int main()
 			}
 			break;
 		case 3:
-			cout << "Lista degustações por estilo de cerveja" << endl;
+			cout << "LISTAR DEGUSTAï¿½ï¿½ES POR ESTILO DE CERVEJA" << endl;
 			if (qtdCeva == 0)
 			{
-				cout << "Arquivo vazio." << endl;
+				cout << "NENHUMA DEGUSTAï¿½ï¿½O CADASTRADA!" << endl;
 			}
 			else
 			{
@@ -411,32 +373,33 @@ int main()
 			}
 			break;
 		case 4:
-			cout << "Lista degustações por ranking de cerveja" << endl;
+			cout << "LISTAR DEGUSTAï¿½ï¿½ES POR RANKING" << endl;
 			if (qtdCeva == 0)
 			{
-				cout << "Arquivo vazio." << endl;
+				cout << "NENHUMA DEGUSTAï¿½ï¿½O CADASTRADA!" << endl;
 			}
 			else
 			{
-				organizaNota(vetor, TAM, qtdCeva);
+				organizaNota(vetor, TAM);
+				listaCevaDegustacao(vetor, TAM);
 			}
 			break;
 		case 5:
-			cout << "Excluir desgustação" << endl;
+			cout << "EXCLUIR DEGUSTAï¿½ï¿½O" << endl;
 			if (qtdCeva == 0)
 			{
-				cout << "Arquivo vazio." << endl;
+				cout << "NENHUMA DEGUSTAï¿½ï¿½O CADASTRADA!" << endl;
 			}
 			else
 			{
-				apagarDeg(vetor, TAM, qtdCeva);
+				apagarDegustacao(vetor, TAM, qtdCeva);
 			}
 			break;
 		case 6:
-			cout << "Obrigado por usar o sistema." << endl;
+			cout << "OBRIGADO POR USAR O SISTEMA" << endl;
 			break;
 		default:
-			cout << "Opção inválida." << endl;
+			cout << "OPï¿½ï¿½O INVALIDA" << endl;
 		}
 	} while (opcao != 6);
 	return 1;
