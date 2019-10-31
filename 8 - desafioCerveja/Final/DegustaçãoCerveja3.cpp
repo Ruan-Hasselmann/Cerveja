@@ -85,6 +85,7 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 	cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Nome: ";
 	cin >> vetor[i].nome;
+	//Tentei utilizar o getline para ler nome composto porem ele da problema na leitura de uma variavel dentro do laço de repetição e nao le int, não consegui executar a conversao de string pra int utilizando o atoi. 
 	
 	vetor[i].data = pegaDataString();
 	
