@@ -82,26 +82,25 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 		}
 	}
 
-	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
+	cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Nome: ";
-	getline(cin, vetor[i].nome);
-
+	cin >> vetor[i].nome;
+	
 	vetor[i].data = pegaDataString();
-
-	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
+	
+	cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Estilo: ";
 	cin >> vetor[i].estilo;
-
-	do
-	{
+	
+	do{
 		cout << "Nota geral [0 a 5]: ";
 		cin >> vetor[i].nota;
 	} while (vetor[i].nota < 0 || vetor[i].nota > 5);
 
-	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
+	cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Fabricante: ";
 	cin >> vetor[i].fabricante;
-
+	
 	vetor[i].nome = paraMaiusculo(vetor[i].nome);
 
 	vetor[i].estilo = paraMaiusculo(vetor[i].estilo);
