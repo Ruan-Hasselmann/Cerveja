@@ -18,7 +18,7 @@ typedef struct
 	string nome;
 	string data;
 	string estilo;
-	int nota;
+	string nota;
 	string fabricante;
 } Degustacao;
 
@@ -84,7 +84,8 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 
 	cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Nome: ";
-	cin >> vetor[i].nome;
+	getline(cin >> ws, vetor[i].nome);
+	cin.ignore();
 	//Tentei utilizar o getline para ler nome composto porem ele da problema na leitura de uma variavel dentro do laço de repetição e nao le int, não consegui executar a conversao de string pra int utilizando o atoi. 
 	
 	vetor[i].data = pegaDataString();
@@ -96,7 +97,7 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 	do{
 		cout << "Nota geral [0 a 5]: ";
 		cin >> vetor[i].nota;
-	} while (vetor[i].nota < 0 || vetor[i].nota > 5);
+	} while (stoi(vetor[i].nota) < 0 || stoi(vetor[i].nota) > 5);
 
 	cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Fabricante: ";
@@ -212,7 +213,7 @@ void apagarDegustacao(Degustacao vetor[], int qtdCeva, int n)
 			vetor[i].nome = "";
 			vetor[i].data = "";
 			vetor[i].estilo = "";
-			vetor[i].nota = 0;
+			vetor[i].nota = "";
 			vetor[i].fabricante = "";
 
 			atualizaArquivoComCeva(vetor, n);
@@ -226,9 +227,9 @@ void apagarDegustacao(Degustacao vetor[], int qtdCeva, int n)
 	}
 }
 
-void converte(string linha, string *nome, string *data, string *estilo, int *nota, string *fabricante)
+void converte(string linha, string *nome, string *data, string *estilo, string *nota, string *fabricante)
 {
-	stringstream sNome, sData, sEstilo, Nota, sFabricante;
+	stringstream sNome, sData, sEstilo, sNota, sFabricante;
 
 	int parteLinha = 0;
 	int i;
@@ -259,10 +260,10 @@ void converte(string linha, string *nome, string *data, string *estilo, int *not
 
 	for (++i; linha[i] != '-'; i++)
 	{
-		Nota << linha[i];
+		sNota << linha[i];
 	}
-	Nota << "\0";
-	stringstream conversaoNota(Nota.str());
+	sNota << "\0";
+	stringstream conversaoNota(sNota.str());
 	conversaoNota >> *nota;
 
 	for (++i; i < linha.length(); i++)
@@ -298,7 +299,7 @@ void inicializaCeva(Degustacao vetor[], int n)
 		vetor[i].nome = "";
 		vetor[i].data = "";
 		vetor[i].estilo = "";
-		vetor[i].nota = 0;
+		vetor[i].nota = "";
 		vetor[i].fabricante = "";
 	}
 }
