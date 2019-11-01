@@ -82,26 +82,24 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 		}
 	}
 
-	cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
+	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Nome: ";
 	getline(cin >> ws, vetor[i].nome);
-	cin.ignore();
-	//Tentei utilizar o getline para ler nome composto porem ele da problema na leitura de uma variavel dentro do laço de repetição e nao le int, não consegui executar a conversao de string pra int utilizando o atoi. 
 	
 	vetor[i].data = pegaDataString();
 	
-	cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
+	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Estilo: ";
-	cin >> vetor[i].estilo;
+	getline(cin >> ws, vetor[i].estilo);
 	
 	do{
 		cout << "Nota geral [0 a 5]: ";
 		cin >> vetor[i].nota;
 	} while (stoi(vetor[i].nota) < 0 || stoi(vetor[i].nota) > 5);
 
-	cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
+	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
 	cout << "Fabricante: ";
-	cin >> vetor[i].fabricante;
+	getline(cin >> ws, vetor[i].fabricante);
 	
 	vetor[i].nome = paraMaiusculo(vetor[i].nome);
 
@@ -111,7 +109,7 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 
 	atualizaArquivoComCeva(vetor, qtdCeva);
 
-	cout << "Cerveja cadastrada na degusta��o!" << endl;
+	cout << "Cerveja cadastrada na degustacao!" << endl;
 
 	system("cls");
 }
@@ -124,14 +122,14 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 	cout << "Listagem por estilo de cerveja" << endl;
 	if (qtdCeva == -1)
 	{
-		cout << "Nenhuma degusta��o cadastrada..." << endl;
+		cout << "Nenhuma degustacao cadastrada..." << endl;
 	}
 	else
 	{
 		string estiloPesquisa;
 
 		cout << "Digite o estilo de cerveja para pesquisar: ";
-		cin >> estiloPesquisa;
+		getline(cin >> ws, estiloPesquisa);
 
 		estiloPesquisa = paraMaiusculo(estiloPesquisa);
 
@@ -152,8 +150,25 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 			}
 		}
 
-		cout << "Total de degusta��es do estilo: " << tipoCeva << endl
+		cout << "Total de degustacoes do estilo: " << tipoCeva << endl
 			 << endl;
+	}
+}
+
+void listaCevaDegustacao(Degustacao vetor[], int qtdCeva)
+{
+	for (int i = 0; i < qtdCeva; i++)
+	{
+		if (vetor[i].nome != "")
+		{
+			cout << "-------------------------" << endl;
+			cout << "Nome      : " << vetor[i].nome << endl;
+			cout << "Data      : " << vetor[i].data << endl;
+			cout << "Estilo    : " << vetor[i].estilo << endl;
+			cout << "Nota      : " << vetor[i].nota << endl;
+			cout << "Fabricante: " << vetor[i].fabricante << endl;
+			cout << "-------------------------" << endl;
+		}
 	}
 }
 
@@ -176,30 +191,11 @@ void organizaNota(Degustacao vetor[], int n)
     }while(houveTroca);
 }
 
-void listaCevaDegustacao(Degustacao vetor[], int qtdCeva)
-{
-	system("cls");
-
-	for (int i = 0; i < qtdCeva; i++)
-	{
-		if (vetor[i].nome != "")
-		{
-			cout << "-------------------------" << endl;
-			cout << "Nome      : " << vetor[i].nome << endl;
-			cout << "Data      : " << vetor[i].data << endl;
-			cout << "Estilo    : " << vetor[i].estilo << endl;
-			cout << "Nota      : " << vetor[i].nota << endl;
-			cout << "Fabricante: " << vetor[i].fabricante << endl;
-			cout << "-------------------------" << endl;
-		}
-	}
-}
-
 void apagarDegustacao(Degustacao vetor[], int qtdCeva, int n)
 {
 	string nome;
 	cout << "Digite o nome para excluir: ";
-	cin >> nome;
+	getline(cin >> ws, nome);
 
 	nome = paraMaiusculo(nome);
 
@@ -216,6 +212,8 @@ void apagarDegustacao(Degustacao vetor[], int qtdCeva, int n)
 			vetor[i].nota = "";
 			vetor[i].fabricante = "";
 
+			qtdCeva--;
+
 			atualizaArquivoComCeva(vetor, n);
 
 			break;
@@ -223,7 +221,7 @@ void apagarDegustacao(Degustacao vetor[], int qtdCeva, int n)
 	}
 	if (i == n)
 	{
-		cout << "Cerveja n�o localizada no sistema." << endl;
+		cout << "Cerveja nao localizada no sistema." << endl;
 	}
 }
 
@@ -327,20 +325,20 @@ int main()
 
 	do
 	{
-		cout << "MENU DEGUSTA��O CERVEJA ARTESANAL" << endl;
-		cout << "1 - Cadastrar degusta��o" << endl;
-		cout << "2 - Listar degusta��es" << endl;
-		cout << "3 - Lista degusta��es por estilo de cerveja" << endl;
+		cout << "MENU DEGUSTACAO CERVEJA ARTESANAL" << endl;
+		cout << "1 - Cadastrar degustacao" << endl;
+		cout << "2 - Listar degustacoes" << endl;
+		cout << "3 - Lista degustacoes por estilo de cerveja" << endl;
 		cout << "4 - Ranking das cervejas" << endl;
-		cout << "5 - Apagar degusta��o" << endl;
+		cout << "5 - Apagar degustacao" << endl;
 		cout << "6 - Sair" << endl;
-		cout << "Op��o: ";
+		cout << "Opcao: ";
 		cin >> opcao;
 
 		switch (opcao)
 		{
 		case 1:
-			cout << "CADASTRAR DEGUSTA��O" << endl;
+			cout << "CADASTRAR DEGUSTACAO" << endl;
 			if (qtdCeva == TAM)
 			{
 				cout << "ARQUIVO LOTADO." << endl;
@@ -354,19 +352,21 @@ int main()
 		case 2:
 			cout << "LISTAR DEGUSTA��ES" << endl;
 			if (qtdCeva == 0)
-			{
-				cout << "NENHUMA DEGUSTA��O CADASTRADA!" << endl;
+			{	
+				system("cls");
+				cout << endl << "NENHUMA DEGUSTACAO CADASTRADA!" << endl << endl;
 			}
 			else
 			{
+				system("cls");
 				listaCevaDegustacao(vetor, qtdCeva);
 			}
 			break;
 		case 3:
-			cout << "LISTAR DEGUSTA��ES POR ESTILO DE CERVEJA" << endl;
+			cout << "LISTAR DEGUSTACOES POR ESTILO DE CERVEJA" << endl;
 			if (qtdCeva == 0)
 			{
-				cout << "NENHUMA DEGUSTA��O CADASTRADA!" << endl;
+				cout << "NENHUMA DEGUSTACAO CADASTRADA!" << endl;
 			}
 			else
 			{
@@ -374,10 +374,10 @@ int main()
 			}
 			break;
 		case 4:
-			cout << "LISTAR DEGUSTA��ES POR RANKING" << endl;
+			cout << "LISTAR DEGUSTACOES POR RANKING" << endl;
 			if (qtdCeva == 0)
 			{
-				cout << "NENHUMA DEGUSTA��O CADASTRADA!" << endl;
+				cout << "NENHUMA DEGUSTACAO CADASTRADA!" << endl;
 			}
 			else
 			{
@@ -386,10 +386,10 @@ int main()
 			}
 			break;
 		case 5:
-			cout << "EXCLUIR DEGUSTA��O" << endl;
+			cout << "EXCLUIR DEGUSTACAO" << endl;
 			if (qtdCeva == 0)
 			{
-				cout << "NENHUMA DEGUSTA��O CADASTRADA!" << endl;
+				cout << "NENHUMA DEGUSTACAO CADASTRADA!" << endl;
 			}
 			else
 			{
@@ -400,7 +400,7 @@ int main()
 			cout << "OBRIGADO POR USAR O SISTEMA" << endl;
 			break;
 		default:
-			cout << "OP��O INVALIDA" << endl;
+			cout << "OPCAO INVALIDA" << endl;
 		}
 	} while (opcao != 6);
 	return 1;
