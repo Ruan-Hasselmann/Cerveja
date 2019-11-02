@@ -1,3 +1,5 @@
+// utilizar esse comando para compilar - g++ -std=c++11 .\DegustaçãoCerveja3.cpp -o roda
+
 #include <iostream>
 #include <string>
 #include <sstream>
