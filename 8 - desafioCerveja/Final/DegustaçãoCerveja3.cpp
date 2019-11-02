@@ -8,7 +8,7 @@
 #include <time.h>
 #include <locale.h>
 
-#define TAM 10
+#define TAM 20
 #define NOMEARQUIVO "ceva.dat"
 
 using namespace std;
@@ -82,23 +82,20 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 		}
 	}
 
-	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
-	cout << "Nome: ";
+	cout << "Nome da cerveja: ";
 	getline(cin >> ws, vetor[i].nome);
 	
 	vetor[i].data = pegaDataString();
 	
-	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
-	cout << "Estilo: ";
+	cout << "Estilo da cerveja: ";
 	getline(cin >> ws, vetor[i].estilo);
 	
 	do{
-		cout << "Nota geral [0 a 5]: ";
+		cout << "Nota da degusacao [0 a 10]: ";
 		cin >> vetor[i].nota;
-	} while (stoi(vetor[i].nota) < 0 || stoi(vetor[i].nota) > 5);
+	} while (stoi(vetor[i].nota) < 0 || stoi(vetor[i].nota) > 10);
 
-	//cout << "PARA NOME COMPOSTO UTILIZE HIFEM '-' !" << endl;
-	cout << "Fabricante: ";
+	cout << "Fabricante da cerveja: ";
 	getline(cin >> ws, vetor[i].fabricante);
 	
 	vetor[i].nome = paraMaiusculo(vetor[i].nome);
@@ -109,7 +106,7 @@ void cadastraCerveja(Degustacao vetor[], int n, int qtdCeva)
 
 	atualizaArquivoComCeva(vetor, qtdCeva);
 
-	cout << "Cerveja cadastrada na degustacao!" << endl;
+	cout << "CERVEJA CADASTRADA NA DEGUSTACAO!" << endl;
 
 	system("cls");
 }
@@ -122,7 +119,7 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 	cout << "Listagem por estilo de cerveja" << endl;
 	if (qtdCeva == -1)
 	{
-		cout << "Nenhuma degustacao cadastrada..." << endl;
+		cout << "NENHUMA DEGUSTACAO CADASTRADA..." << endl;
 	}
 	else
 	{
@@ -150,7 +147,7 @@ void listaCevaTipo(Degustacao vetor[], int i, int qtdCeva)
 			}
 		}
 
-		cout << "Total de degustacoes do estilo: " << tipoCeva << endl
+		cout << "TOTAL DE DEGUSTACOES DO ESTILO: " << tipoCeva << endl
 			 << endl;
 	}
 }
@@ -204,7 +201,7 @@ void apagarDegustacao(Degustacao vetor[], int qtdCeva, int n)
 	{
 		if (vetor[i].nome == nome)
 		{
-			cout << "Cerveja excluida...." << endl;
+			cout << "CERVEJA EXCLUIDA...." << endl;
 
 			vetor[i].nome = "";
 			vetor[i].data = "";
@@ -221,7 +218,7 @@ void apagarDegustacao(Degustacao vetor[], int qtdCeva, int n)
 	}
 	if (i == n)
 	{
-		cout << "Cerveja nao localizada no sistema." << endl;
+		cout << "CERVEJA NAO LOCALIZADA NO SISTEMA." << endl;
 	}
 }
 
@@ -350,7 +347,7 @@ int main()
 			}
 			break;
 		case 2:
-			cout << "LISTAR DEGUSTA��ES" << endl;
+			cout << "LISTAR DEGUSTACOES" << endl;
 			if (qtdCeva == 0)
 			{	
 				system("cls");
